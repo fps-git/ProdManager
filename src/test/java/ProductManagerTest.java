@@ -89,6 +89,48 @@ class ProductManagerTest {
     }
 
     @Test
+    public void shouldFindByManufacturer() {
+        ProductRepository repo = new ProductRepository();
+        ProductManager manager = new ProductManager(repo);
+        Product good1 = new Smartphone(1, "iPhone 11", 24400, "Apple");
+        Product good2 = new Book(2, "1984", 1400, "George Orwell");
+        Product good3 = new Smartphone(3, "iPhone 13", 65300, "Apple");
+        Product good4 = new Book(4, "The Great Gatsby", 2100, "F. Scott Fitzgerald");
+
+        manager.add(good1);
+        manager.add(good2);
+        manager.add(good3);
+        manager.add(good4);
+
+        Product[] expected = {good1, good3};
+        Product[] actual = manager.searchBy("Apple");
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldFindByAuthor() {
+        ProductRepository repo = new ProductRepository();
+        ProductManager manager = new ProductManager(repo);
+        Product good1 = new Smartphone(1, "iPhone 11", 24400, "Apple");
+        Product good2 = new Book(2, "1984", 1400, "George Orwell");
+        Product good3 = new Smartphone(3, "iPhone 13", 65300, "Apple");
+        Product good4 = new Book(4, "The Great Gatsby", 2100, "F. Scott Fitzgerald");
+
+        manager.add(good1);
+        manager.add(good2);
+        manager.add(good3);
+        manager.add(good4);
+
+        Product[] expected = {good4};
+        Product[] actual = manager.searchBy("Fitzgerald");
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
     public void shouldRemoveByID() {
         ProductRepository repo = new ProductRepository();
         ProductManager manager = new ProductManager(repo);
@@ -111,5 +153,4 @@ class ProductManagerTest {
         assertArrayEquals(expected, actual);
 
     }
-
 }
